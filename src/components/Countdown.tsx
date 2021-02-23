@@ -28,12 +28,18 @@ export function Countdown() {
     }
 
     /* useEffect() prend deux paramètres : le premier est toujours une fonction, le deuxième c'est quand je veux que cette fonction soit exécutée.
-    Dans cet exemple, si on met le code comme suit, cette fonction sera exécutée à chaque fois qu'il y aura un changement dans la variable active. Elle commence à false, mais si on clique sur le bouton elle passera à true.
-    Ce sera ici alors, qu'il faudra mettre le décomptage du chronometre après le clique sur le bouton et l'activation du state du coup.
     */
     useEffect(() => {
-        console.log(active)
-    }, [active]);
+        // Si le chronometre est actif et s'il est supérieur à 0
+        if (active && time > 0) {
+            // setTimeout se lance 1s après son appel et
+            setTimeout(() => {
+                // change le state du chronometre en enlèvant 1s de sont temps défini (25 min)
+                setTime(time - 1);
+            }, 1000)
+        }
+        // Il faut que le state du chronometre soit activé et que pour que l'heure change à chaque seconde, on doit "surveiller" aussi les changements du state time
+    }, [active, time]);
 
     return (
         <div>
