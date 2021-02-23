@@ -9,17 +9,25 @@
     border-radius: 50%;
 }
 
+/* Bloc où se trouve le nom et le niveau de l'utilisateur*/
 .profileContainer div {
     margin-left: 1.5rem;
 }
 
+/* strong où se trouve le nom de l'utilisateur */
 .profileContainer div strong {
     font-size: 1.5rem;
     font-weight: 600;
     color: var(--title);
 }
 
+/* Texte juste en bas du nom de l'utilisateur*/
 .profileContainer div p {
     font-size: 1rem;
     margin-top: 0.5rem;
+}
+
+/* Icone */
+.profileContainer div p img {
+    margin-right: 0.5rem;
 }
