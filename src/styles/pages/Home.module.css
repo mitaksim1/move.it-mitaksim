@@ -1,0 +1,18 @@
+.container {
+    height: 100vh; /* 100vh le container prend toute la page != de 100% qui va essayer d'adapter le contenu à l'espace disponible */
+    max-width: 992px;
+    margin: 0 auto;
+    padding: 2.5rem 2rem;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.container section {
+    flex: 1;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6.25rem;
+    align-content: center;
+}
