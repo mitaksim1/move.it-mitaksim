@@ -7,10 +7,12 @@ let countdownTimeout: NodeJS.Timeout;
 
 export function Countdown() {
     // Initialization du chronometre en secondes
-    const [time, setTime] = useState(25 * 60);
+    const [time, setTime] = useState(0.1 * 60);
     // Ce state vérifie si le countdown est en marche ou arrêté
     // On l'initialise à false, parce qu'il faut le clic de l'utilisateur pour le mettre en marche
     const [isActive, setIsActive] = useState(false);
+    // state qui vérifie si le chronomètre est allé jusqu'à la fin
+    const [hasFinished, setHasFinished] = useState(false);
 
     // Pour trouver les minutes 
     // Math.floor() : arrondi à l'entier plus petit
@@ -37,7 +39,7 @@ export function Countdown() {
         // Passer le state isActive à false
         setIsActive(false);
         // Remettre le chronomètre à 0
-        setTime(25 * 60);
+        setTime(0.1 * 60);
     }
 
     /* 
@@ -51,6 +53,12 @@ export function Countdown() {
                 // change le state du chronometre en enlèvant 1s de sont temps défini (25 min)
                 setTime(time - 1);
             }, 1000)
+            // sinon s'il est actif mais est arrivé à 0
+        } else if (isActive && time === 0) {
+            //console.log('Finalizou');
+            setHasFinished(true);
+            // countdown n'est plus actif, alors il faut changer son state
+            setIsActive(false);
         }
         // Il faut que le state du chronometre soit activé et que pour que l'heure change à chaque seconde, on doit "surveiller" aussi les changements du state time
     }, [isActive, time]);
@@ -69,6 +77,16 @@ export function Countdown() {
                     <span>{secondeRight}</span>
                 </div>
             </div>
+            {/* Si le cycle s'est fini */}
+            {/* Une façon d'écrire le ternaire sans le else */}
+            { hasFinished && (
+                <p>Fini...</p>
+            )}
+            {/* Une autre façon d'écrire le ternaire sans le else 
+            { hasFinished ? (
+                <p>Fini...</p>
+            ) : null}
+            */}
             {/* Pour pouvoir insérer deux classes CSS : template literals pour concaténer la nouvelle classe */}
             { isActive ? (
                 <button 
