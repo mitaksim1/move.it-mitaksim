@@ -2,6 +2,9 @@ import { useEffect, useState } from 'react';
 
 import styles from '../styles/components/Countdown.module.css';
 
+// 3. NodeJS.Timeout : typage global, juste pour qu'on assigne un type à la variable
+let countdownTimeout: NodeJS.Timeout;
+
 export function Countdown() {
     // Initialization du chronometre en secondes
     const [time, setTime] = useState(25 * 60);
@@ -23,17 +26,29 @@ export function Countdown() {
 
     // Au clic sur le bouton, on appelle cette fonction
     function startCountdown() {
-        // qui va activer le chronometre et va le lancer
+        // qui va activer le chronometre
         setIsActive(true);
     }
 
-    /* useEffect() prend deux paramètres : le premier est toujours une fonction, le deuxième c'est quand je veux que cette fonction soit exécutée.
+    // Arrête le chronometre 
+    function resetCountdown() {
+        // 5. Quand on appelle cette méthode la première chose qu'elle va faire maintenant c'est nettoyer le countdownTimeout
+        clearTimeout(countdownTimeout);
+        // 1. Premier chose à faire, arrêter le chronomètre
+        setIsActive(false);
+        // En l'arrêtant useEffect va prendre la valeur de active qui maintenant est false et le stopper. 
+        // 2. Le soucis c'est que setTimeout met une seconde pour s'arrêter, alors le chronomètre diminue encore de 1 même après l'appui sur le bouton, pour corriger ça, on va créer une variable cf. countdownTimeout plus haut
+    }
+
+    /* 
+    * Lance le chronometre
     */
     useEffect(() => {
         // Si le chronometre est actif et s'il est supérieur à 0
         if (isActive && time > 0) {
             // setTimeout se lance 1s après son appel et
-            setTimeout(() => {
+            // 4. On assigne setTimeout à la variable crée
+            countdownTimeout = setTimeout(() => {
                 // change le state du chronometre en enlèvant 1s de sont temps défini (25 min)
                 setTime(time - 1);
             }, 1000)
@@ -60,7 +75,7 @@ export function Countdown() {
                 <button 
                 type="button" 
                 className={`${styles.countdownButton} ${styles.countdownButtonActive}`}
-                onClick={startCountdown}
+                onClick={resetCountdown}
             >
               Abandonner le cycle 
             </button>
