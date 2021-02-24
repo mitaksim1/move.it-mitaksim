@@ -77,34 +77,36 @@ export function Countdown() {
                     <span>{secondeRight}</span>
                 </div>
             </div>
-            {/* Si le cycle s'est fini */}
-            {/* Une façon d'écrire le ternaire sans le else */}
-            { hasFinished && (
-                <p>Fini...</p>
-            )}
-            {/* Une autre façon d'écrire le ternaire sans le else 
+            {/* Si le chronomètre est fini, afficher le bouton avec le message sinon afficher les autres boutons selon si actif ou pas */}
+            {/* disabled parce qu'on ne veut pas que le bouton soit cliquable, on veut juste afficher le message */}
             { hasFinished ? (
-                <p>Fini...</p>
-            ) : null}
-            */}
-            {/* Pour pouvoir insérer deux classes CSS : template literals pour concaténer la nouvelle classe */}
-            { isActive ? (
                 <button 
-                type="button" 
-                className={`${styles.countdownButton} ${styles.countdownButtonActive}`}
-                onClick={resetCountdown}
-            >
-              Abandonner le cycle 
-            </button>
-            )  : (
-                <button 
-                type="button" 
-                className={styles.countdownButton}
-                onClick={startCountdown}
-            >
-                Lancer le cycle
-            </button>
-            )}    
+                    disabled
+                    className={styles.countdownButton}
+                >
+                    Cycle fini 
+                </button>
+            ) : (
+                <>
+                { isActive ? (
+                    <button 
+                    type="button" 
+                    className={`${styles.countdownButton} ${styles.countdownButtonActive}`}
+                    onClick={resetCountdown}
+                >
+                  Abandonner le cycle 
+                </button>
+                )  : (
+                    <button 
+                    type="button" 
+                    className={styles.countdownButton}
+                    onClick={startCountdown}
+                >
+                    Lancer le cycle
+                </button>
+                )}
+                </> 
+            )}      
         </div>
     );
 }
