@@ -32,12 +32,12 @@ export function Countdown() {
 
     // Arrête le chronometre 
     function resetCountdown() {
-        // 5. Quand on appelle cette méthode la première chose qu'elle va faire maintenant c'est nettoyer le countdownTimeout
-        clearTimeout(countdownTimeout);
-        // 1. Premier chose à faire, arrêter le chronomètre
+        // Premier chose arrêter le setTimeout 
+        clearTimeout(countdownTimeout); 
+        // Passer le state isActive à false
         setIsActive(false);
-        // En l'arrêtant useEffect va prendre la valeur de active qui maintenant est false et le stopper. 
-        // 2. Le soucis c'est que setTimeout met une seconde pour s'arrêter, alors le chronomètre diminue encore de 1 même après l'appui sur le bouton, pour corriger ça, on va créer une variable cf. countdownTimeout plus haut
+        // Remettre le chronomètre à 0
+        setTime(25 * 60);
     }
 
     /* 
@@ -47,7 +47,6 @@ export function Countdown() {
         // Si le chronometre est actif et s'il est supérieur à 0
         if (isActive && time > 0) {
             // setTimeout se lance 1s après son appel et
-            // 4. On assigne setTimeout à la variable crée
             countdownTimeout = setTimeout(() => {
                 // change le state du chronometre en enlèvant 1s de sont temps défini (25 min)
                 setTime(time - 1);
