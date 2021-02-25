@@ -1,8 +1,14 @@
+import { useContext } from 'react';
+import { ChallengesContext } from '../contexts/ChallengesContext';
+
 import styles from '../styles/components/ChallengeBox.module.css';
 
 // Après la création de ce composant, l'appeler dans index.tsx
 export function ChallengeBox() {
-    // Initialization d'une variable juste pour pouvoir visualizer le résultat html/JSX de la page dans le cas il y a un défi actif. Voir en bas la condition créée dans le retour de la fonction
+    // Avec cette variable, on pourra utiliser les informations de ce contexte n'import où dans l'application
+    const contextData = useContext(ChallengesContext);
+
+    console.log(contextData);
     const hasActiveChallenge = true;
 
     return (
