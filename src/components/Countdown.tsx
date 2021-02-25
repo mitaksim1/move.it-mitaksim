@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react';
+import { useContext } from 'react';
+import { ChallengesContext } from '../contexts/ChallengesContext';
 
 import styles from '../styles/components/Countdown.module.css';
 
@@ -13,6 +15,10 @@ export function Countdown() {
     const [isActive, setIsActive] = useState(false);
     // state qui vérifie si le chronomètre est allé jusqu'à la fin
     const [hasFinished, setHasFinished] = useState(false);
+
+    const contextData = useContext(ChallengesContext);
+
+    console.log(contextData);
 
     // Pour trouver les minutes 
     // Math.floor() : arrondi à l'entier plus petit
