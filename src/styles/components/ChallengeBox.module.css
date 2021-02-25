@@ -1,0 +1,44 @@
+.challengeBoxContainer {
+    /* prend 100% du parent (section) */
+    height: 100%;
+    background: var(--white);
+    border-radius: 5px;
+    box-shadow: 0 0 60px rgba(0, 0, 0, 0.05);
+    /* Haut/Bas Côtés*/
+    padding: 1.5rem 2rem;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+/* Bloc qui contient les textes + l'icône*/ 
+.challengeNotActive {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Texte */ 
+.challengeNotActive strong {
+    font-size: 1.5rem;
+    font-weight: 500;
+    line-height: 1.4;
+}
+
+/* Texte */
+.challengeNotActive p {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 1.4;
+    max-width: 70%;
+    margin-top: 3rem;
+}
+
+/* Icone */
+.challengeNotActive p img {
+    margin-bottom: 1rem;
+}
