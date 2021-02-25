@@ -6,20 +6,18 @@ import styles from '../styles/components/ChallengeBox.module.css';
 // Après la création de ce composant, l'appeler dans index.tsx
 export function ChallengeBox() {
     // Avec cette variable, on pourra utiliser les informations de ce contexte n'import où dans l'application
-    const contextData = useContext(ChallengesContext);
-
-    console.log(contextData);
-    const hasActiveChallenge = true;
+    // 1. Récupération de activeChallenge,
+    const { activeChallenge } = useContext(ChallengesContext);
 
     return (
         <div className={styles.challengeBoxContainer}>
-            { hasActiveChallenge ? (
+            { activeChallenge ? (
                 <div className={styles.challengeActive}>
-                    <header>Gagnez 400 xp</header>
+                    <header>Gagnez{activeChallenge.amount}</header>
                     <main>
-                        <img src="icons/body.svg" alt=""/>
+                        <img src={`icons/${activeChallenge.type}.svg`} alt=""/>
                         <strong>Nouveau défi</strong>
-                        <p>Lèvez-vous et marchez pendant 3 minutes.</p>
+                        <p>{activeChallenge.description}</p>
                     </main>
                     <footer>
                         <button 
