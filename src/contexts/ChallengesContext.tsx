@@ -1,11 +1,20 @@
 import { createContext, useState, ReactNode } from 'react';
+import challenges from '../../challenges.json';
 
+// 8. Création de l'interface pour typer les données du fichier challenges.json
+interface Challenge {
+    type: 'body' | 'eye';
+    description: string;
+    amount: number;
+}
 // Type des données envoyées dans le context
 // void: fonction qui ne retourne rien
+// 7. Mettre le type de données de activeChallenge, c'est un objet (activeChallenge: objet;), mais comme il y a plusieurs informations dans le fichier, on va créer une nouvelle interface pour préciser le type de chaque propriété pour ainsi récupérer cette nouvelle interface comme type de activeChallenge
 interface ChallengesContextData {
     level: number; 
     currentExperience: number;
     challengesCompleted: number;
+    activeChallenge: Challenge;
     levelUp: () => void;
     startNewChallenge: () => void;
 }
@@ -24,22 +33,35 @@ export function ChallengesProvider({ children }: ChallengesProviderProps) {
     // Quantité des défis accomplis par l'utilisateur 
     const [challengesCompleted, setChallengesCompleted] = useState(0);
 
+    // 4. Sauvegarder le challenge actif dans un state
+    const [activeChallenge, setActiveChallenge] = useState(null);
+
     function levelUp() {
         setlevel(level +1);
     }
 
     // Dès que le chronomètre arrive à 0, lance un nouveau challenge (défi)
     function startNewChallenge() {
-        console.log('New Challenge');
+        // 1. Prend l'index d'un challenge aleatoirement
+        // Math.random * challenges.length retourne un nombre à virgule, alors 
+        // 2. Math.floor va l'arrondir au plus petit
+        const randomChallengeIndex = Math.floor(Math.random() * challenges.length);
+
+        // 3. challange prendra comme valeur la valeur contenue dans l'index
+        const challenge = challenges[randomChallengeIndex];
+
+        // 5. Le state de activeChallenge est null, on va le changer par le challenge obtenu dans le random
+        setActiveChallenge(challenge);
     }
 
     // Une fois les states déclarés, on pourra les récupèrer dans values
-    // On aura besoin de la fonction startNewChallenge dans le composant Countdown, mais pour qu'on puisse y accèder ce sera bien de créer une nouvelle interface pour "typer" les données envoyées
+    // 6. Passer le nouveau state au Provider
     return (
         <ChallengesContext.Provider value={{ 
             level, 
             currentExperience, 
             challengesCompleted,
+            activeChallenge,
             levelUp, 
             startNewChallenge 
             }}
