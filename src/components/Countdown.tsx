@@ -16,9 +16,8 @@ export function Countdown() {
     // state qui vérifie si le chronomètre est allé jusqu'à la fin
     const [hasFinished, setHasFinished] = useState(false);
 
-    const contextData = useContext(ChallengesContext);
-
-    console.log(contextData);
+    // Grâce au context on peut accèder à la fonction starNewChallenge qu'on avait crée
+    const { startNewChallenge } = useContext(ChallengesContext);
 
     // Pour trouver les minutes 
     // Math.floor() : arrondi à l'entier plus petit
@@ -65,6 +64,8 @@ export function Countdown() {
             setHasFinished(true);
             // countdown n'est plus actif, alors il faut changer son state
             setIsActive(false);
+            // Après récupération du context, on peut appeler la fonction pour que dès que le chronomètre s'arrête il y ait un nouveau défi
+            startNewChallenge();
         }
         // Il faut que le state du chronometre soit activé et que pour que l'heure change à chaque seconde, on doit "surveiller" aussi les changements du state time
     }, [isActive, time]);
