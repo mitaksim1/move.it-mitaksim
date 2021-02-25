@@ -4,24 +4,15 @@ import { useState } from 'react';
 
 import '../styles/global.css';
 
-import { ChallengesContext } from '../contexts/ChallengesContext';
+import { ChallengesProvider } from '../contexts/ChallengesContext';
 
-/* React nous permet d'accèder à une propriété de l'objet comme suit. Tous les éléments qui sont englobés par le Provider auront accès aux données contenus dans ce contexte. Comme ce fichier englobe toute l'application, toute l'appli aura accès aux diverses données y contenues */
 function MyApp({ Component, pageProps }) {
-  const [level, setLevel] = useState(1);
-
-  /*
-  Maintenant, les choses commecent à devenir intéressantes, parce qu'avec context on a accès aux informations et on peut créer des fonctions qui pourront changer ces informations conforme nos besoins
-  */
-
-  function levelUp() {
-    setLevel(level + 1);
-  }
   
+  // Rappel: Dans React les éléments entourés par un autre sont les children, que l'on pourra passer à un autre composant avec les props (props.children)
   return (  
-    <ChallengesContext.Provider value={{ Level: 1, levelUp }}>
+    <ChallengesProvider>
       <Component {...pageProps} />
-    </ChallengesContext.Provider>
+    </ChallengesProvider>
     
   )
 }
