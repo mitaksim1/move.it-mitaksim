@@ -8,16 +8,19 @@ import styles from '../styles/components/Countdown.module.css';
 let countdownTimeout: NodeJS.Timeout;
 
 export function Countdown() {
+    // Grâce au context on peut accèder à la fonction starNewChallenge qu'on avait crée
+    const { startNewChallenge } = useContext(ChallengesContext);
+
     // Initialization du chronometre en secondes
     const [time, setTime] = useState(0.1 * 60);
+
     // Ce state vérifie si le countdown est en marche ou arrêté
     // On l'initialise à false, parce qu'il faut le clic de l'utilisateur pour le mettre en marche
     const [isActive, setIsActive] = useState(false);
+    
     // state qui vérifie si le chronomètre est allé jusqu'à la fin
     const [hasFinished, setHasFinished] = useState(false);
 
-    // Grâce au context on peut accèder à la fonction starNewChallenge qu'on avait crée
-    const { startNewChallenge } = useContext(ChallengesContext);
 
     // Pour trouver les minutes 
     // Math.floor() : arrondi à l'entier plus petit
