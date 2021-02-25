@@ -9,7 +9,6 @@ interface Challenge {
 }
 // Type des données envoyées dans le context
 // void: fonction qui ne retourne rien
-// 5. On défini le type de cette variable
 interface ChallengesContextData {
     level: number; 
     currentExperience: number;
@@ -38,7 +37,7 @@ export function ChallengesProvider({ children }: ChallengesProviderProps) {
     // Sauvegarder le challenge actif dans un state
     const [activeChallenge, setActiveChallenge] = useState(null);
 
-    // 3. Calcul pour passer au prochain niveau.
+    // Calcul pour passer au prochain niveau.
     const experienceToNextLevel = Math.pow((level +1) * 4, 2);
 
     function levelUp() {
@@ -60,7 +59,6 @@ export function ChallengesProvider({ children }: ChallengesProviderProps) {
     }
 
     // Une fois les states déclarés, on pourra les récupèrer dans values
-    // 4. On passe cette variable au Provider
     return (
         <ChallengesContext.Provider value={{ 
             level, 
