@@ -5,9 +5,8 @@ import styles from '../styles/components/ChallengeBox.module.css';
 
 // Après la création de ce composant, l'appeler dans index.tsx
 export function ChallengeBox() {
-    // Avec cette variable, on pourra utiliser les informations de ce contexte n'import où dans l'application
-    // 1. Récupération de activeChallenge,
-    const { activeChallenge } = useContext(ChallengesContext);
+    // Récupération de activeChallenge,
+    const { activeChallenge, resetChallenge } = useContext(ChallengesContext);
 
     return (
         <div className={styles.challengeBoxContainer}>
@@ -23,6 +22,7 @@ export function ChallengeBox() {
                         <button 
                             type="button"
                             className={styles.challengeFailedButton}
+                            onClick={resetChallenge}
                         >Défaite
                         
                         </button>
