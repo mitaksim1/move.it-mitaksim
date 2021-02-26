@@ -59,6 +59,9 @@ export function ChallengesProvider({ children }: ChallengesProviderProps) {
 
         setActiveChallenge(challenge);
 
+        // Son quand notification
+        new Audio('/notification.mp3').play();
+
         if (Notification.permission === 'granted') {
             new Notification('Nouveau défi 🎉', {
                 body: `A gagner ${challenge.amount}xp`
