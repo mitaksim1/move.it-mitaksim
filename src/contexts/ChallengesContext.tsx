@@ -18,6 +18,7 @@ interface ChallengesContextData {
     levelUp: () => void;
     startNewChallenge: () => void;
     resetChallenge: () => void;
+    completeChallenge: () => void;
 }
 
 interface ChallengesProviderProps {
@@ -54,8 +55,40 @@ export function ChallengesProvider({ children }: ChallengesProviderProps) {
         setActiveChallenge(challenge);
     }
 
+    // Si défaite, remettre le state de activeChallenge à son état initial
     function resetChallenge() {
         setActiveChallenge(null);
+    }
+
+    // 
+    function completeChallenge() {
+        // Si le challenge n'est pas actif, ne fait rien
+        if (!activeChallenge) {
+            return;
+        }
+        // On prend le nombre de points du challenge actif
+        const { amount } = activeChallenge;
+
+        let finalExperience = currentExperience + amount;
+
+         
+        // Si le résultat final est supérieur ou égal aux points calculés dans experienceToNextToLevel
+        if (finalExperience >= experienceToNextLevel) {
+            // Le résultat final sera ce résultat - le nombre de points maxi attendus
+            finalExperience = finalExperience - experienceToNextLevel;
+            levelUp();
+        }
+        /*
+        Ex: J'ai 80 points, pour changer de niveau selon le calcul de experienceNextToLevel je dois avoir 120 points.
+        Je fais un challenge qui vaut 80 points (80 + 80 = 160), alors je dépasse les 120 nécéssaires.
+        On fait la soustraction de ces deux valeurs pour prendre juste la différence que c'est la quantité que j'ai besoin pour atteindre le prochain niveau
+        */
+       // On sette la nouvelle valeur du state
+       setCurrentExperience(finalExperience);
+       // Une fois le défis accompli, on désactive le challenge
+       setActiveChallenge(null);
+       // On change le state de ChallengesCompleted
+       setChallengesCompleted(challengesCompleted + 1);
     }
 
     // Une fois les states déclarés, on pourra les récupèrer dans values
@@ -68,7 +101,8 @@ export function ChallengesProvider({ children }: ChallengesProviderProps) {
             activeChallenge,
             levelUp, 
             startNewChallenge,
-            resetChallenge
+            resetChallenge, 
+            completeChallenge,
             }}
             >
             {children}

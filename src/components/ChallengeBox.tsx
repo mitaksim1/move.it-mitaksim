@@ -6,13 +6,13 @@ import styles from '../styles/components/ChallengeBox.module.css';
 // Après la création de ce composant, l'appeler dans index.tsx
 export function ChallengeBox() {
     // Récupération de activeChallenge,
-    const { activeChallenge, resetChallenge } = useContext(ChallengesContext);
+    const { activeChallenge, resetChallenge, completeChallenge } = useContext(ChallengesContext);
 
     return (
         <div className={styles.challengeBoxContainer}>
             { activeChallenge ? (
                 <div className={styles.challengeActive}>
-                    <header>Gagnez{activeChallenge.amount}</header>
+                    <header>Gagnez {activeChallenge.amount}</header>
                     <main>
                         <img src={`icons/${activeChallenge.type}.svg`} alt=""/>
                         <strong>Nouveau défi</strong>
@@ -23,13 +23,16 @@ export function ChallengeBox() {
                             type="button"
                             className={styles.challengeFailedButton}
                             onClick={resetChallenge}
-                        >Défaite
+                        >
+                            Défaite
                         
                         </button>
                         <button 
                             type="button"
                             className={styles.challengeSucceededButton}
-                        >Défi réussi!
+                            onClick={completeChallenge}
+                        >
+                            Défi réussi!
                         
                         </button>
                     </footer>
