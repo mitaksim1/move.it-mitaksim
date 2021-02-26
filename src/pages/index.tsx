@@ -6,15 +6,30 @@ import { ChallengeBox } from '../components/ChallengeBox';
 import { Countdown } from '../components/Countdown';
 import { CompletedChallenges } from '../components/CompletedChallenges';
 import { Profile } from '../components/Profile';
+import { ChallengesProvider } from '../contexts/ChallengesContext';
 import { CountdownProvider } from '../contexts/CountdownContext';
 
 
 import styles from '../styles/pages/Home.module.css';
 
-export default function Home(props) {
+// Interface qui va définir les types attendus des props suivants
+// Il faut qu'on les passe aussi à l'interface ChallengesProviderProps pou ne pas avoir d'erreur
+interface HomeProps {
+  level: number;
+  currentExperience: number;
+  challengesCompleted: number;
+}
+
+// On passe le typage des props, mais comme on attend des nombres et les cookies stockent ces informations en string, il va falloir les convertir au moment du passage des props dans la foncion getServerSideProps
+export default function Home(props: HomeProps) {
   console.log(props);
   return (
-    <div className={styles.container}>
+    <ChallengesProvider
+      level={props.level}
+      currentExperience={props.currentExperience}
+      challengesCompleted={props.challengesCompleted}
+    >
+      <div className={styles.container}>
       <Head>
         <title>Inicio | move.it</title>
       </Head>
@@ -36,7 +51,8 @@ export default function Home(props) {
         </section>
       </CountdownProvider>
       
-    </div>
+      </div>
+    </ChallengesProvider> 
   )
 }
 
@@ -44,12 +60,13 @@ export default function Home(props) {
 export const getServerSideProps: GetServerSideProps = async(ctx) => {
   // const cookies = ctx.req.cookies;
   const { level, currentExperience, challengesCompleted} = ctx.req.cookies;
-    
-  return {
+   
+  {/* On convertit les données reçus des cookies de string à Number */}
+  return { 
     props:  {
-      level,
-      currentExperience,
-      challengesCompleted
+      level: Number(level),
+      currentExperience: Number(currentExperience),
+      challengesCompleted: Number(challengesCompleted)
     }
   }
 }

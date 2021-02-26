@@ -22,25 +22,35 @@ interface ChallengesContextData {
     completeChallenge: () => void;
 }
 
+// Comme on a englobé le code de index.tsx avec le ChallengesProvider, on doit aussi récupérer les props settés dans les cookies ici et après les envoyer en props dans la fonction 
 interface ChallengesProviderProps {
     children: ReactNode;
+    level: number;
+    currentExperience: number;
+    challengesCompleted: number;
 }
 
 // Une fois le typage crée, on le précise dans la création de notre contexte
 export const ChallengesContext = createContext({} as ChallengesContextData);
 
-export function ChallengesProvider({ children }: ChallengesProviderProps) {
-    const [level, setLevel] = useState(1);
+//...rest: opérateur de JS qui prend le reste des propriétés qui font pas parties des children
+export function ChallengesProvider({ 
+    children, 
+    ...rest
+    }: ChallengesProviderProps) {
+
+    // rest.level ?? : s'il existe pas sa valeur sera 1
+    const [level, setLevel] = useState(rest.level ?? 1);
     // L'expéricence (xp) de l'utilisateur commence toujours à 0
-    const [currentExperience, setCurrentExperience] = useState(0);
+    const [currentExperience, setCurrentExperience] = useState(rest.currentExperience ?? 0);
     // Quantité des défis accomplis par l'utilisateur 
-    const [challengesCompleted, setChallengesCompleted] = useState(0);
+    const [challengesCompleted, setChallengesCompleted] = useState(rest.challengesCompleted ?? 0);
 
     // Sauvegarder le challenge actif dans un state
     const [activeChallenge, setActiveChallenge] = useState(null);
 
     // Calcul pour passer au prochain niveau.
-    const experienceToNextLevel = Math.pow((level +1) * 4, 2);
+    const experienceToNextLevel = Math.pow((level + 1) * 4, 2);
 
     // Quand la page sera chargée on va demander l'autorisation de l'utilisateur pour lui envoyer des notifications
     useEffect(() => {
