@@ -1,4 +1,5 @@
 import { createContext, useState, ReactNode, useEffect } from 'react';
+import Cookies from 'js-cookie';
 import challenges from '../../challenges.json';
 
 // Création de l'interface pour typer les données du fichier challenges.json
@@ -29,7 +30,7 @@ interface ChallengesProviderProps {
 export const ChallengesContext = createContext({} as ChallengesContextData);
 
 export function ChallengesProvider({ children }: ChallengesProviderProps) {
-    const [level, setlevel] = useState(1);
+    const [level, setLevel] = useState(1);
     // L'expéricence (xp) de l'utilisateur commence toujours à 0
     const [currentExperience, setCurrentExperience] = useState(0);
     // Quantité des défis accomplis par l'utilisateur 
@@ -47,7 +48,15 @@ export function ChallengesProvider({ children }: ChallengesProviderProps) {
         Notification.requestPermission();
     }, []);
 
+    //
+    useEffect(() => {
+        Cookies.set('level', String(level));
+        Cookies.set('currentExperience', String(currentExperience));
+        Cookies.set('challengesCompleted', String(challengesCompleted));
+    }, [level, currentExperience, challengesCompleted])
+
     function levelUp() {
+        setLevel(level +1);
     }
 
     // Dès que le chronomètre arrive à 0, lance un nouveau challenge (défi)
