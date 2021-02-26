@@ -1,4 +1,4 @@
-import { createContext, useState, ReactNode } from 'react';
+import { createContext, useState, ReactNode, useEffect } from 'react';
 import challenges from '../../challenges.json';
 
 // Création de l'interface pour typer les données du fichier challenges.json
@@ -41,8 +41,13 @@ export function ChallengesProvider({ children }: ChallengesProviderProps) {
     // Calcul pour passer au prochain niveau.
     const experienceToNextLevel = Math.pow((level +1) * 4, 2);
 
+    // Quand la page sera chargée on va demander l'autorisation de l'utilisateur pour lui envoyer des notifications
+    useEffect(() => {
+        // Notification : API du navigateur
+        Notification.requestPermission();
+    }, []);
+
     function levelUp() {
-        setlevel(level +1);
     }
 
     // Dès que le chronomètre arrive à 0, lance un nouveau challenge (défi)
@@ -53,6 +58,12 @@ export function ChallengesProvider({ children }: ChallengesProviderProps) {
         const challenge = challenges[randomChallengeIndex];
 
         setActiveChallenge(challenge);
+
+        if (Notification.permission === 'granted') {
+            new Notification('Nouveau défi 🎉', {
+                body: `A gagner ${challenge.amount}xp`
+            });
+        }
     }
 
     // Si défaite, remettre le state de activeChallenge à son état initial

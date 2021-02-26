@@ -13,8 +13,6 @@ export function ChallengeBox() {
 
     /* 
     Création des deux fonctions qui vont gérer le reset si challenge réussi ou défaite.
-    On a créée ces fonctions, parce qu'au même temps qu'on aura besoin des informations du ChallengeContext -> completeChallenge, on va avoir besoin de la fonction resetCountdown de CountdownChallenge
-    A la fin dans le JSX, on aura besoin d'appeler que cette fonction là
     */
     function handleChallengeSucceeded() {
         completeChallenge();
