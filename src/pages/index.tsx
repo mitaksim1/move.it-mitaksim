@@ -10,7 +10,8 @@ import { CountdownProvider } from '../contexts/CountdownContext';
 
 import styles from '../styles/pages/Home.module.css';
 
-export default function Home() {
+export default function Home(props) {
+  console.log(props);
   return (
     <div className={styles.container}>
       <Head>
@@ -37,3 +38,22 @@ export default function Home() {
     </div>
   )
 }
+
+/* Quand on déclare une fonction dans une page Next, on peut manipuler quelles données peuvent être repassé de Next (Node: back-end) à React (frontend) cf. Exemple */
+export const getServerSideProps = async() => {
+  {/*
+  Exemple : On fait cette apel à l'API 
+
+  */}
+  const user = {
+    level: 1,
+    currentExperience: 50,
+    challengeCompleted: 2,
+  }
+
+  return {
+    props: {user}
+  }
+}
+
+/* Next est hybride */
