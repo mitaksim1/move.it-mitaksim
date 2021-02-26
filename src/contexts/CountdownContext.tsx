@@ -33,7 +33,7 @@ export function CountdownProvider({ children }: CountdownProviderProps) {
     // On l'initialise à false, parce qu'il faut le clic de l'utilisateur pour le mettre en marche
     const [isActive, setIsActive] = useState(false);
     
-    // state qui vérifie si le chronomètre est allé jusqu'à la fin
+    // state qui vérifie si le chronomètre est allé jusqu'à la fin (s'il est fini)
     const [hasFinished, setHasFinished] = useState(false);
 
 
@@ -57,6 +57,8 @@ export function CountdownProvider({ children }: CountdownProviderProps) {
         setIsActive(false);
         // Remettre le chronomètre à 0
         setTime(0.1 * 60);
+        // Remet la valeur de hasFinished à false
+        setHasFinished(false);
     }
 
     /* 
