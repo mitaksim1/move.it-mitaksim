@@ -22,7 +22,6 @@ interface ChallengesContextData {
     completeChallenge: () => void;
 }
 
-// Comme on a englobé le code de index.tsx avec le ChallengesProvider, on doit aussi récupérer les props settés dans les cookies ici et après les envoyer en props dans la fonction 
 interface ChallengesProviderProps {
     children: ReactNode;
     level: number;
@@ -111,11 +110,7 @@ export function ChallengesProvider({
             finalExperience = finalExperience - experienceToNextLevel;
             levelUp();
         }
-        /*
-        Ex: J'ai 80 points, pour changer de niveau selon le calcul de experienceNextToLevel je dois avoir 120 points.
-        Je fais un challenge qui vaut 80 points (80 + 80 = 160), alors je dépasse les 120 nécéssaires.
-        On fait la soustraction de ces deux valeurs pour prendre juste la différence que c'est la quantité que j'ai besoin pour atteindre le prochain niveau
-        */
+       
        // On sette la nouvelle valeur du state
        setCurrentExperience(finalExperience);
        // Une fois le défis accompli, on désactive le challenge

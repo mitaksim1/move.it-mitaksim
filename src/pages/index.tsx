@@ -13,14 +13,12 @@ import { CountdownProvider } from '../contexts/CountdownContext';
 import styles from '../styles/pages/Home.module.css';
 
 // Interface qui va définir les types attendus des props suivants
-// Il faut qu'on les passe aussi à l'interface ChallengesProviderProps pou ne pas avoir d'erreur
 interface HomeProps {
   level: number;
   currentExperience: number;
   challengesCompleted: number;
 }
 
-// On passe le typage des props, mais comme on attend des nombres et les cookies stockent ces informations en string, il va falloir les convertir au moment du passage des props dans la foncion getServerSideProps
 export default function Home(props: HomeProps) {
   console.log(props);
   return (
