@@ -21,6 +21,7 @@ interface ChallengesContextData {
     startNewChallenge: () => void;
     resetChallenge: () => void;
     completeChallenge: () => void;
+    closeLevelUpModal: () => void;
 }
 
 interface ChallengesProviderProps {
@@ -66,10 +67,18 @@ export function ChallengesProvider({
         Cookies.set('challengesCompleted', String(challengesCompleted));
     }, [level, currentExperience, challengesCompleted])
 
+    // Augmente le niveau de 1
     function levelUp() {
         setLevel(level +1);
         // Quand l'utilisateur monte d'un niveau, on ouvre le modal
         setIsLevelUpModalOpen(true);
+    }
+
+    // Ferme le bouton du modal
+    // Après sa création ne pas oublier de lui envoyer dans le value de ChallengeProvider et de spécifier son type dans l'interface
+    // Après ça, on aura accès à cette méthode dans le fichier du Modal, pour pouvoir créer un event onClick dans le bouton pour pouvoir le fermer
+    function closeLevelUpModal() {
+        setIsLevelUpModalOpen(false);
     }
 
     // Dès que le chronomètre arrive à 0, lance un nouveau challenge (défi)
@@ -135,6 +144,7 @@ export function ChallengesProvider({
             startNewChallenge,
             resetChallenge, 
             completeChallenge,
+            closeLevelUpModal,
             }}
             >
             {children}

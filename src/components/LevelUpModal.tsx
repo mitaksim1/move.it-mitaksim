@@ -5,7 +5,7 @@ import styles from '../styles/components/LevelUpModal.module.css';
 
 export function LevelUpModal() {
     // Pour pouvoir accèder aux données de level et pouvoir dynamiser la valeur du header, on appelle le context
-    const { level } = useContext(ChallengesContext);
+    const { level, closeLevelUpModal } = useContext(ChallengesContext);
     return (
         <div className={styles.overlay}>
             <div className={styles.container}>
@@ -13,7 +13,10 @@ export function LevelUpModal() {
 
                 <strong>Bravo!</strong>
                 <p>Tu as atteint un niveau de plus</p>
-                <button type="button">
+                <button 
+                type="button"
+                onClick={closeLevelUpModal}
+                >
                     <img src="/icons/close.svg" alt="Fechar modal"/>
                 </button>
             </div>
