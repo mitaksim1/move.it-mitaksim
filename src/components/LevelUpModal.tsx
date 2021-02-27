@@ -1,14 +1,14 @@
 import styles from '../styles/components/LevelUpModal.module.css';
 
 
-export function levelUpModal() {
+export function LevelUpModal() {
     return (
         <div className={styles.overlay}>
-            <div className={styles.levelUpModalContainer}>
+            <div className={styles.container}>
                 <header>2</header>
 
                 <strong>Bravo!</strong>
-                <p>T'as atteint un niveau</p>
+                <p>Tu as atteint un niveau de plus</p>
                 <button type="button">
                     <img src="/icons/close.svg" alt="Fechar modal"/>
                 </button>

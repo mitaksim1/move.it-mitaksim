@@ -5,6 +5,7 @@ import { ExperienceBar } from '../components/ExperienceBar';
 import { ChallengeBox } from '../components/ChallengeBox';
 import { Countdown } from '../components/Countdown';
 import { CompletedChallenges } from '../components/CompletedChallenges';
+import { LevelUpModal } from '../components/LevelUpModal';
 import { Profile } from '../components/Profile';
 import { ChallengesProvider } from '../contexts/ChallengesContext';
 import { CountdownProvider } from '../contexts/CountdownContext';
@@ -33,6 +34,7 @@ export default function Home(props: HomeProps) {
       </Head>
 
       <ExperienceBar />
+      <LevelUpModal />
 
       <CountdownProvider>
         <section>
