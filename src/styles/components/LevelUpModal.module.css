@@ -53,4 +53,6 @@
     top: 0.5rem;
     background: transparent; /* ou none */
     border: 0;
+    /* Quand on a une icône comme contenu d'un bouton pour le centrer on peut mettre sa taille à 0*/
+    font-size: 0;
 }
