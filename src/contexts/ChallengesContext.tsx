@@ -1,6 +1,7 @@
 import { createContext, useState, ReactNode, useEffect } from 'react';
 import Cookies from 'js-cookie';
 import challenges from '../../challenges.json';
+import { LevelUpModal } from '../components/LevelUpModal';
 
 // Création de l'interface pour typer les données du fichier challenges.json
 interface Challenge {
@@ -134,6 +135,8 @@ export function ChallengesProvider({
             }}
             >
             {children}
+            {/* Après la création du modal, on pourra l'appeler ici parce que c'est dans le ChallengesProvider qu'on fait appel à la fonction levelUp */}
+            <LevelUpModal />
         </ChallengesContext.Provider>
     );
 }
