@@ -45,9 +45,10 @@ export function ChallengesProvider({
     const [currentExperience, setCurrentExperience] = useState(rest.currentExperience ?? 0);
     // Quantité des défis accomplis par l'utilisateur 
     const [challengesCompleted, setChallengesCompleted] = useState(rest.challengesCompleted ?? 0);
-
     // Sauvegarder le challenge actif dans un state
     const [activeChallenge, setActiveChallenge] = useState(null);
+    // Vérifie si le modal est ouvert ou pas
+    const [isLevelUpModalOpen, setIsLevelUpModalOpen] = useState(false);
 
     // Calcul pour passer au prochain niveau.
     const experienceToNextLevel = Math.pow((level + 1) * 4, 2);
@@ -67,6 +68,8 @@ export function ChallengesProvider({
 
     function levelUp() {
         setLevel(level +1);
+        // Quand l'utilisateur monte d'un niveau, on ouvre le modal
+        setIsLevelUpModalOpen(true);
     }
 
     // Dès que le chronomètre arrive à 0, lance un nouveau challenge (défi)
@@ -135,8 +138,8 @@ export function ChallengesProvider({
             }}
             >
             {children}
-            {/* Après la création du modal, on pourra l'appeler ici parce que c'est dans le ChallengesProvider qu'on fait appel à la fonction levelUp */}
-            <LevelUpModal />
+            {/* Si le state d'ouverture de modal é true, alors on l'affiche */}
+            { isLevelUpModalOpen && <LevelUpModal /> }
         </ChallengesContext.Provider>
     );
 }
