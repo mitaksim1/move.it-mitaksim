@@ -27,7 +27,7 @@ export function CountdownProvider({ children }: CountdownProviderProps) {
     const { startNewChallenge } = useContext(ChallengesContext);
 
     // Initialization du chronometre en secondes
-    const [time, setTime] = useState(0.1 * 60);
+    const [time, setTime] = useState(25 * 60);
 
     // Ce state vérifie si le countdown est en marche ou arrêté
     // On l'initialise à false, parce qu'il faut le clic de l'utilisateur pour le mettre en marche
